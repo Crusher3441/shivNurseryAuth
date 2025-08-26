@@ -17,7 +17,21 @@ app.use(bodyParser.json());
 const JWT_SECRET = process.env.JWT_SECRET || 'shivnursery_secret_key_2024';
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/shivnursery',{
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shivnursery';
+
+// Ensure database name is included
+if (MONGODB_URI.includes('mongodb+srv://') && !MONGODB_URI.includes('/shivnursery')) {
+  // Insert database name before query parameters
+  if (MONGODB_URI.includes('?')) {
+    MONGODB_URI = MONGODB_URI.replace('/?', '/shivnursery?');
+  } else {
+    MONGODB_URI = MONGODB_URI + '/shivnursery';
+  }
+}
+
+console.log('Connecting to MongoDB with URI:', MONGODB_URI.replace(/:[^@]*@/, ':***@'));
+
+mongoose.connect(MONGODB_URI,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(()=>{
@@ -50,6 +64,9 @@ app.get('/',(req,res)=>{
 
 // Registration Route
 app.post('/api/register', async (req, res) => {
+  console.log('Registration request received:', req.body);
+  console.log('MongoDB URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
+  
   const { username, email, password, confirmPassword } = req.body;
   if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: 'All fields are required.' });
@@ -61,6 +78,7 @@ app.post('/api/register', async (req, res) => {
     return res.status(400).json({ message: 'Passwords do not match.' });
   }
   try {
+    console.log('Checking for existing user...');
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: 'Username already exists.' });
@@ -69,12 +87,15 @@ app.post('/api/register', async (req, res) => {
     if (existingEmail) {
       return res.status(400).json({ message: 'Email already registered.' });
     }
+    console.log('Creating new user...');
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
+    console.log('User created successfully');
     res.status(201).json({ message: 'User registered successfully.' });
   } catch (err) {
-    res.status(500).json({ message: 'Server error.' });
+    console.error('Registration error:', err);
+    res.status(500).json({ message: 'Server error: ' + err.message });
   }
 });
 
@@ -157,7 +178,13 @@ app.post('/api/logout', (req, res) => {
   res.json({ message: 'Logged out successfully' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`);
-});
+// Export for Vercel serverless functions
+module.exports = app;
+
+// For local development
+if (require.main === module) {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}

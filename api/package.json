@@ -1,0 +1,12 @@
+{
+  "name": "shiv-nursery-api",
+  "version": "1.0.0",
+  "description": "API functions for ShivNursery",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.14.1",
+    "dotenv": "^16.0.3"
+  }
+}

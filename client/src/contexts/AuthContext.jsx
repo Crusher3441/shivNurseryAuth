@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+// API base URL from environment variables
+const API_BASE_URL = import.meta.env.VITE_API_URL || window.location.origin;
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -30,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     const verifyToken = async () => {
       if (token) {
         try {
-          const response = await axios.get('http://localhost:5000/api/verify-token');
+          const response = await axios.get(`${API_BASE_URL}/api/verify-token`);
           setUser(response.data.user);
         } catch (error) {
           console.error('Token verification failed:', error);
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post(`${API_BASE_URL}/api/login`, {
         username,
         password,
       });
@@ -67,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password, confirmPassword) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/register', {
+      const response = await axios.post(`${API_BASE_URL}/api/register`, {
         username,
         email,
         password,

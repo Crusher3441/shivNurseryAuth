@@ -1,0 +1,12 @@
+{
+  "name": "shiv-nursery-with-auth",
+  "version": "1.0.0",
+  "description": "Full-stack ShivNursery application with authentication",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "node backend/server.js"
+  },
+  "keywords": ["nursery", "plants", "ecommerce", "authentication", "fullstack"],
+  "author": "",
+  "license": "ISC"
+}
