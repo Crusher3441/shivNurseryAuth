@@ -1,3 +1,5 @@
+import ContactForm from '../components/Homeform'
+import ConsultForm from '../components/ConsultantForm'
 import { 
   Container, 
   Typography, 
@@ -95,7 +97,7 @@ export default function Home({ addToCart }) {
     {
       id: 3,
       name: "Seeds & Bulbs",
-      image: "https://images.unsplash.com/photo-1416436917180-ca2bb3c0e0d1?w=400&h=250&fit=crop",
+      image: "https://images.unsplash.com/photo-1600630659080-a3f0f94f93fd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       itemCount: 85
     },
     {
@@ -132,7 +134,7 @@ export default function Home({ addToCart }) {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Transform Your Space */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -140,28 +142,120 @@ export default function Home({ addToCart }) {
       >
         <Box
           sx={{
-            background: 'linear-gradient(135deg, #2E7D32 0%, #4CAF50 50%, #66BB6A 100%)',
+            background: 'linear-gradient(135deg, #1A5A1A 0%, #2E7D32 30%, #4CAF50 70%, #66BB6A 100%)',
             color: 'white',
-            py: { xs: 6, md: 12 },
+            py: { xs: 8, md: 16 },
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center'
           }}
         >
+          {/* Animated background elements */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: 0.1,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+            }}
+          />
+          
           <Container maxWidth="lg">
-            <Grid container spacing={4} alignItems="center">
-              <Grid item xs={12} md={6}>
+            <Grid container spacing={6} alignItems="center">
+              <Grid item xs={12} lg={6}>
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
-                    🌱 Transform Your Space
+                  {/* Small badge/tag */}
+                  <Box sx={{ mb: 3 }}>
+                    <Chip 
+                      label="🌿 Premium Plant Collection" 
+                      sx={{ 
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        color: 'white',
+                        fontWeight: 'medium',
+                        border: '1px solid rgba(255,255,255,0.3)'
+                      }} 
+                    />
+                  </Box>
+                  
+                  <Typography 
+                    variant="h1" 
+                    component="h1" 
+                    gutterBottom 
+                    sx={{ 
+                      fontWeight: 800, 
+                      fontSize: { xs: '3rem', md: '4.5rem', lg: '5rem' },
+                      lineHeight: 0.9,
+                      mb: 3,
+                      // background: 'linear-gradient(135deg, #ffffff 0%, #e8f5e8 100%)',
+                      // WebkitBackgroundClip: 'text',
+                      // WebkitTextFillColor: 'transparent',
+                      // textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                    }}
+                  >
+                    Transform Your
+                    <br />
+                    {/* <Box component="span" sx={{ color: '#A5D6A7' }}> */}
+                      Living Space
+                    {/* </Box> */}
                   </Typography>
-                  <Typography variant="h5" gutterBottom sx={{ opacity: 0.9, mb: 4 }}>
-                    Discover premium plants that bring life to your home. Fresh, healthy, and delivered with care.
+                  
+                  <Typography 
+                    variant="h5" 
+                    gutterBottom 
+                    sx={{ 
+                      opacity: 0.95, 
+                      mb: 4,
+                      fontSize: { xs: '1.2rem', md: '1.5rem' },
+                      fontWeight: 300,
+                      lineHeight: 1.4
+                    }}
+                  >
+                    Discover our curated collection of premium plants that bring natural beauty, 
+                    fresh air, and peaceful vibes to every corner of your home.
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+                  
+                  {/* Feature highlights */}
+                  <Box sx={{ mb: 4, display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                    {[
+                      '🚚 Free Delivery',
+                      '🌱 Healthy Plants',
+                      '💚 Expert Care Tips',
+                      '⭐ 5-Star Service'
+                    ].map((feature, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                      >
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            backgroundColor: 'rgba(255,255,255,0.15)',
+                            px: 2,
+                            py: 1,
+                            borderRadius: 20,
+                            fontSize: '0.9rem',
+                            fontWeight: 500,
+                            border: '1px solid rgba(255,255,255,0.2)'
+                          }}
+                        >
+                          {feature}
+                        </Typography>
+                      </motion.div>
+                    ))}
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'stretch', sm: 'center' } }}>
                     <Button
                       component={Link}
                       to="/shop"
@@ -170,47 +264,216 @@ export default function Home({ addToCart }) {
                       endIcon={<ArrowForward />}
                       sx={{ 
                         backgroundColor: 'white', 
-                        color: '#2E7D32',
-                        px: 4,
-                        py: 1.5,
-                        '&:hover': { backgroundColor: '#f5f5f5' }
+                        color: '#1A5A1A',
+                        px: 6,
+                        py: 2,
+                        fontSize: '1.1rem',
+                        fontWeight: 600,
+                        borderRadius: 30,
+                        boxShadow: '0 8px 32px rgba(255,255,255,0.3)',
+                        '&:hover': { 
+                          backgroundColor: '#f8f8f8',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 12px 40px rgba(255,255,255,0.4)'
+                        },
+                        transition: 'all 0.3s ease'
                       }}
                     >
-                      Shop Now
+                      Explore Plants
                     </Button>
+                    
                     <Button
+                      component={Link}
+                      to="/about"
                       variant="outlined"
                       size="large"
                       sx={{ 
                         borderColor: 'white', 
                         color: 'white',
-                        px: 4,
-                        py: 1.5,
-                        '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' }
+                        px: 6,
+                        py: 2,
+                        fontSize: '1.1rem',
+                        fontWeight: 500,
+                        borderRadius: 30,
+                        borderWidth: 2,
+                        '&:hover': { 
+                          backgroundColor: 'rgba(255,255,255,0.1)',
+                          transform: 'translateY(-2px)',
+                          borderColor: '#A5D6A7'
+                        },
+                        transition: 'all 0.3s ease'
                       }}
                     >
                       Learn More
                     </Button>
                   </Box>
+                  
+                  {/* Stats section */}
+                  <Box sx={{ mt: 6, display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {[
+                      { number: '10K+', label: 'Happy Customers' },
+                      { number: '500+', label: 'Plant Varieties' },
+                      { number: '99%', label: 'Satisfaction Rate' }
+                    ].map((stat, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 1.2 + index * 0.2 }}
+                      >
+                        <Box sx={{ textAlign: 'left' }}>
+                          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#A5D6A7' }}>
+                            {stat.number}
+                          </Typography>
+                          <Typography variant="body2" sx={{ opacity: 0.8, fontSize: '0.9rem' }}>
+                            {stat.label}
+                          </Typography>
+                        </Box>
+                      </motion.div>
+                    ))}
+                  </Box>
                 </motion.div>
               </Grid>
-              <Grid item xs={12} md={6}>
+              
+              <Grid item xs={12} lg={6}>
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  <Box
-                    component="img"
-                    src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop"
-                    alt="Beautiful plants collection"
-                    sx={{
-                      width: '100%',
-                      height: 'auto',
-                      borderRadius: 2,
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
-                    }}
-                  />
+                  <Box sx={{ position: 'relative', height: { xs: 400, md: 600 } }}>
+                    {/* Main image */}
+                    <Box
+                      component="img"
+                      src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=800&fit=crop&crop=center"
+                      alt="Beautiful modern living room with plants"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 4,
+                        objectFit: 'cover',
+                        boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
+                        border: '4px solid rgba(255,255,255,0.1)'
+                      }}
+                    />
+                    
+                    {/* Floating cards */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.8, delay: 1.0 }}
+                    >
+                      <Paper
+                        sx={{
+                          position: 'absolute',
+                          top: 20,
+                          right: -20,
+                          p: 3,
+                          backgroundColor: 'rgba(255,255,255,0.95)',
+                          backdropFilter: 'blur(10px)',
+                          borderRadius: 3,
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                          border: '1px solid rgba(255,255,255,0.3)',
+                          minWidth: 200
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box
+                            sx={{
+                              backgroundColor: '#E8F5E8',
+                              borderRadius: '50%',
+                              p: 1,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
+                          >
+                            <Typography sx={{ fontSize: '1.5rem' }}>🌱</Typography>
+                          </Box>
+                          <Box>
+                            <Typography variant="h6" sx={{ color: '#2E7D32', fontWeight: 'bold', mb: 0.5 }}>
+                              Air Purifying
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Cleaner indoor air
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Paper>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.8, delay: 1.3 }}
+                    >
+                      <Paper
+                        sx={{
+                          position: 'absolute',
+                          bottom: 30,
+                          left: -30,
+                          p: 3,
+                          backgroundColor: 'rgba(255,255,255,0.95)',
+                          backdropFilter: 'blur(10px)',
+                          borderRadius: 3,
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                          border: '1px solid rgba(255,255,255,0.3)',
+                          minWidth: 180
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box
+                            sx={{
+                              backgroundColor: '#FFF3E0',
+                              borderRadius: '50%',
+                              p: 1,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
+                          >
+                            <Typography sx={{ fontSize: '1.5rem' }}>🏠</Typography>
+                          </Box>
+                          <Box>
+                            <Typography variant="h6" sx={{ color: '#F57C00', fontWeight: 'bold', mb: 0.5 }}>
+                              Home Décor
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Beautiful spaces
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Paper>
+                    </motion.div>
+                    
+                    {/* Decorative elements */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: -10,
+                        left: -10,
+                        width: 100,
+                        height: 100,
+                        borderRadius: '50%',
+                        background: 'rgba(165, 214, 167, 0.3)',
+                        filter: 'blur(20px)',
+                        zIndex: -1
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: -20,
+                        right: -20,
+                        width: 150,
+                        height: 150,
+                        borderRadius: '50%',
+                        background: 'rgba(76, 175, 80, 0.2)',
+                        filter: 'blur(30px)',
+                        zIndex: -1
+                      }}
+                    />
+                  </Box>
                 </motion.div>
               </Grid>
             </Grid>
@@ -443,53 +706,11 @@ export default function Home({ addToCart }) {
       </Box>
 
       {/* Newsletter Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Paper 
-            sx={{ 
-              background: 'linear-gradient(135deg, #2E7D32, #4CAF50)',
-              color: 'white',
-              p: { xs: 4, md: 6 },
-              textAlign: 'center',
-              borderRadius: 4
-            }}
-          >
-            <Typography variant="h4" gutterBottom>
-              Stay Updated!
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-              Subscribe to get special offers, plant care tips, and new arrivals
-            </Typography>
-            <Box sx={{ maxWidth: 400, mx: 'auto', display: 'flex', gap: 2 }}>
-              <TextField
-                fullWidth
-                placeholder="Enter your email"
-                variant="outlined"
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    backgroundColor: 'white',
-                    '& fieldset': { borderColor: 'white' }
-                  }
-                }}
-              />
-              <Button 
-                variant="contained" 
-                sx={{ 
-                  backgroundColor: 'white', 
-                  color: '#2E7D32',
-                  minWidth: 120,
-                  '&:hover': { backgroundColor: '#f5f5f5' }
-                }}
-              >
-                Subscribe
-              </Button>
-            </Box>
-          </Paper>
-        </motion.div>
+      <Container>
+        <Box>
+          {/* <ContactForm/> */}
+          <ConsultForm/>
+        </Box>
       </Container>
     </div>
   );
